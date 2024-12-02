@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Secreto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Amigo Secreto</h1>
+        <div id="input-section">
+            <input type="text" id="nameInput" placeholder="Nome da pessoa" />
+            <input type="text" id="characteristicInput" placeholder="Característica" />
+            <button onclick="addPerson()">Adicionar Pessoa</button>
+        </div>
+        <ul id="personList"></ul>
+        <button id="drawButton" onclick="drawNames()">Sortear Amigo Secreto</button>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
