@@ -1,53 +1,76 @@
+/* Estilos para a interface de amigo secreto */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #E74C3C;
-    color: white;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #27AE60;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #2C3E50;
-    animation: fadeIn 2s;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-input, select, button {
-    margin: 10px;
-    padding: 10px;
+h1 {
+    color: #483D8B; /* DarkSlateBlue */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
     width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
     border-radius: 5px;
-    border: none;
 }
 
 button {
-    background-color: #F1C40F;
+    padding: 10px 20px;
+    background-color: #008000; /* Verde natalino */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    font-size: 1rem;
 }
 
 button:hover {
-    background-color: #F39C12;
+    background-color: #006400; /* Verde mais escuro */
 }
 
-/* Outros estilos permanecem os mesmos */
+select {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
 
 #secretFriendMessage {
+    font-size: 1.2rem;
     margin-top: 20px;
     font-weight: bold;
-    font-size: 1.5em;
-    color: #FF6347;  /* Tom vermelho natalino */
-    animation: fadeIn 2s ease-in-out;
 }
 
 .hidden {
     display: none;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+#confirmationMessage {
+    color: green;
+    font-size: 1rem;
+    margin-top: 10px;
 }
