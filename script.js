@@ -31,7 +31,10 @@ function showSecretFriend() {
     // Exibe a mensagem com o nome sorteado
     const messageElement = document.getElementById('secretFriendMessage');
     messageElement.innerText = `Você tirou: ${secretFriend}! 🎁`;
-    messageElement.classList.remove('hidden');
+    messageElement.classList.remove('hidden'); // Torna a mensagem visível
+
+    // Esconde o botão "Sortear" após o sorteio
+    document.getElementById('drawBtn').style.display = 'none';
 }
 
 // Função para embaralhar a lista de participantes
