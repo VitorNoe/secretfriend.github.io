@@ -1,19 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     let participants = JSON.parse(localStorage.getItem('participants')) || [];
 
-    // Preenche o dropdown com os nomes dos participantes
-    const dropdown = document.getElementById('participantDropdown');
-    if (dropdown) {
-        participants.forEach(participant => {
-            const option = document.createElement('option');
-            option.value = participant;
-            option.textContent = participant;
-            dropdown.appendChild(option);
-        });
+    // Função para registrar participantes
+    function registerParticipant() {
+        const nameInput = document.getElementById('nameInput');
+        const name = nameInput.value.trim();
+
+        if (!name) {
+            alert("Por favor, insira seu nome completo.");
+            return;
+        }
+
+        if (participants.includes(name)) {
+            alert("Este nome já foi registrado.");
+            return;
+        }
+
+        participants.push(name);
+        localStorage.setItem('participants', JSON.stringify(participants));
+
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        confirmationMessage.innerText = "Você foi registrado com sucesso!";
+        confirmationMessage.classList.remove('hidden');
+        
+        setTimeout(() => {
+            window.location.href = 'draw.html';
+        }, 1500);
+    }
+
+    // Função para preencher o dropdown
+    function populateDropdown() {
+        const dropdown = document.getElementById('participantDropdown');
+        if (dropdown) {
+            participants.forEach(participant => {
+                const option = document.createElement('option');
+                option.value = participant;
+                option.textContent = participant;
+                dropdown.appendChild(option);
+            });
+        }
     }
 
     // Função para sortear o amigo secreto
     function showSecretFriend() {
+        const dropdown = document.getElementById('participantDropdown');
         const currentName = dropdown.value;
 
         if (!currentName) {
@@ -21,12 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (participants.length < 2) {
-            alert("É necessário pelo menos dois participantes para o sorteio.");
-            return;
-        }
-
-        // Embaralha e sorteia garantindo que a pessoa não tire a si mesma
         let availableFriends = participants.filter(name => name !== currentName);
         if (availableFriends.length === 0) {
             alert("Nenhum participante disponível para sorteio.");
@@ -36,18 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomIndex = Math.floor(Math.random() * availableFriends.length);
         const secretFriend = availableFriends[randomIndex];
 
-        // Mostra o amigo sorteado
         const message = document.getElementById('secretFriendMessage');
         message.innerText = `Você tirou: ${secretFriend}! 🎁`;
         message.classList.remove('hidden');
 
-        // Esconde o botão após o sorteio
-        document.getElementById('drawBtn').style.display = 'none';
+        document.getElementById('drawBtn').disabled = true;
     }
 
-    // Associa a função ao botão "Sortear"
-    const drawBtn = document.getElementById('drawBtn');
-    if (drawBtn) {
-        drawBtn.addEventListener('click', showSecretFriend);
+    // Eventos associados aos botões
+    if (document.getElementById('registerBtn')) {
+        document.getElementById('registerBtn').addEventListener('click', registerParticipant);
+    }
+    if (document.getElementById('drawBtn')) {
+        document.getElementById('drawBtn').addEventListener('click', showSecretFriend);
+        populateDropdown();
     }
 });
