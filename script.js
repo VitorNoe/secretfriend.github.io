@@ -1,37 +1,46 @@
-let people = [];
-let currentParticipant = "";
+let participants = JSON.parse(localStorage.getItem('participants')) || [];
 
 function registerParticipant() {
-    currentParticipant = document.getElementById('nameInput').value.trim();
-    if (currentParticipant) {
-        if (!people.find(p => p.name === currentParticipant)) {
-            people.push({ name: currentParticipant, secretFriend: null });
-        }
-        document.getElementById('input-section').style.display = 'none';
-        document.getElementById('draw-section').style.display = 'block';
-        document.getElementById('participantName').innerText = `Olá, ${currentParticipant}!`;
+    const name = document.getElementById('nameInput').value.trim();
+    if (name && !participants.includes(name)) {
+        participants.push(name);
+        localStorage.setItem('participants', JSON.stringify(participants));
+        document.getElementById('confirmationMessage').innerText = "Você foi registrado com sucesso!";
+        setTimeout(() => {
+            window.location.href = 'draw.html';
+        }, 1500);
     } else {
-        alert("Por favor, insira seu nome completo.");
+        alert("Nome inválido ou já registrado.");
     }
+}
+
+function populateDropdown() {
+    const dropdown = document.getElementById('participantDropdown');
+    participants.forEach(name => {
+        let option = document.createElement('option');
+        option.text = name;
+        dropdown.add(option);
+    });
 }
 
 function showSecretFriend() {
-    if (!shuffleArray) {
-        shuffleArray();
-    }
-    const participant = people.find(p => p.name === currentParticipant);
-    if (!participant.secretFriend) {
-        const index = (people.indexOf(participant) + 1) % people.length;
-        participant.secretFriend = people[index].name;
-    }
-    document.getElementById('secretFriend').innerText = `Seu amigo secreto é: ${participant.secretFriend}`;
-    document.getElementById('secretFriend').style.display = 'block';
+    const currentName = document.getElementById('participantDropdown').value;
+    const shuffled = shuffle([...participants]);
+    const index = shuffled.findIndex(person => person === currentName);
+    const secretFriend = shuffled[(index + 1) % shuffled.length];
+    document.getElementById('secretFriendMessage').innerText = `Seu amigo secreto é: ${secretFriend}`;
 }
 
-// Função para embaralhar os participantes
-function shuffleArray() {
-    for (let i = people.length - 1; i > 0; i--) {
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [people[i], people[j]] = [people[j], people[i]];
+        [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('participantDropdown')) {
+        populateDropdown();
+    }
+});
