@@ -1,31 +1,27 @@
-function showSecretFriend() {
-    const currentName = document.getElementById('participantDropdown').value;
+let participants = JSON.parse(localStorage.getItem('participants')) || [];
 
-    if (!currentName) {
-        alert("Selecione seu nome na lista.");
+function registerParticipant() {
+    const name = document.getElementById('nameInput').value.trim();
+
+    if (!name) {
+        alert("Por favor, insira seu nome completo.");
         return;
     }
 
-    // Embaralha a lista de participantes
-    const shuffled = shuffle([...participants]);
-
-    // Encontrar o índice da pessoa que está sorteando
-    const index = shuffled.findIndex(person => person === currentName);
-
-    // O próximo na lista será o amigo secreto
-    const secretFriend = shuffled[(index + 1) % shuffled.length]; // Evita que a pessoa se tire
-
-    // Exibe a mensagem com o nome sorteado
-    const messageElement = document.getElementById('secretFriendMessage');
-    messageElement.innerText = `Você tirou: ${secretFriend}! 🎁`;
-    messageElement.classList.remove('hidden');
-}
-
-// Função para embaralhar a lista de participantes
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Troca de posição
+    if (participants.includes(name)) {
+        alert("Este nome já foi registrado.");
+        return;
     }
-    return array;
+
+    // Adiciona o nome na lista de participantes
+    participants.push(name);
+    localStorage.setItem('participants', JSON.stringify(participants));
+
+    // Confirmação visual
+    document.getElementById('confirmationMessage').innerText = "Você foi registrado com sucesso!";
+    
+    // Redirecionamento após 1.5 segundos
+    setTimeout(() => {
+        window.location.href = 'draw.html'; // Redireciona para a página de sorteio
+    }, 1500);
 }
