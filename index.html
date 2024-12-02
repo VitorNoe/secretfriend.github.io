@@ -3,21 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amigo Secreto Anônimo</title>
+    <title>Amigo Secreto - Registro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Amigo Secreto</h1>
-        <div id="input-section">
-            <input type="text" id="nameInput" placeholder="Seu nome completo" />
-            <button onclick="registerParticipant()">Entrar</button>
-        </div>
-        <div id="draw-section" style="display:none;">
-            <p id="participantName"></p>
-            <button onclick="showSecretFriend()">Ver Amigo Secreto</button>
-            <p id="secretFriend" style="display:none;"></p>
-        </div>
+        <h1>Amigo Secreto 🎄</h1>
+        <p>Insira seu nome completo para participar:</p>
+        <input type="text" id="nameInput" placeholder="Nome completo" />
+        <button onclick="registerParticipant()">Registrar</button>
+        <p id="confirmationMessage"></p>
     </div>
     <script src="script.js"></script>
 </body>
