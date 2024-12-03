@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameInput = document.getElementById('nameInput');
         const name = nameInput.value.trim();
 
-        if (!name) {
-            alert("Por favor, insira seu nome completo.");
+        // Validação adicional: nome inválido
+        if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
+            alert("Por favor, insira um nome válido (apenas letras e espaços).");
             return;
         }
 
@@ -59,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const randomIndex = Math.floor(Math.random() * availableFriends.length);
         const secretFriend = availableFriends[randomIndex];
+
+        // Armazena o sorteio para evitar repetição
+        localStorage.setItem(`${currentName}_friend`, secretFriend);
 
         const message = document.getElementById('secretFriendMessage');
         message.innerText = `Você tirou: ${secretFriend}! 🎁`;
