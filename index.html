@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amigo Secreto - Registro</title>
+    <title>Amigo Secreto - Registro/Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Amigo Secreto 🎄</h1>
-        <p>Insira seu nome completo para participar:</p>
-        <input type="text" id="nameInput" placeholder="Digite seu nome completo" aria-label="Nome completo" />
-        <button id="registerBtn">Registrar</button>
-        <p id="confirmationMessage" class="hidden"></p>
-        <p id="errorMessage" class="hidden" style="color: red;"></p> <!-- Nova mensagem de erro -->
+        <h1>Bem-vindo ao Amigo Secreto 🎄</h1>
+        <div class="auth-form">
+            <button id="registerBtn">Registrar</button>
+            <button id="loginBtn">Entrar</button>
+        </div>
+        <div class="form-container hidden" id="registerForm">
+            <h2>Registrar Conta</h2>
+            <input type="text" id="nameInput" placeholder="Nome Completo" />
+            <input type="password" id="passwordInput" placeholder="Senha" />
+            <button id="submitRegister">Registrar</button>
+        </div>
+        <div class="form-container hidden" id="loginForm">
+            <h2>Entrar</h2>
+            <input type="text" id="loginName" placeholder="Nome Completo" />
+            <input type="password" id="loginPassword" placeholder="Senha" />
+            <button id="submitLogin">Entrar</button>
+        </div>
+        <p id="errorMessage" class="hidden" style="color: red;"></p>
     </div>
     <script src="script.js"></script>
 </body>
