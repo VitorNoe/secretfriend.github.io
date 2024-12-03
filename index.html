@@ -10,9 +10,10 @@
     <div class="container">
         <h1>Amigo Secreto 🎄</h1>
         <p>Insira seu nome completo para participar:</p>
-        <input type="text" id="nameInput" placeholder="Digite seu nome completo" />
+        <input type="text" id="nameInput" placeholder="Digite seu nome completo" aria-label="Nome completo" />
         <button id="registerBtn">Registrar</button>
         <p id="confirmationMessage" class="hidden"></p>
+        <p id="errorMessage" class="hidden" style="color: red;"></p> <!-- Nova mensagem de erro -->
     </div>
     <script src="script.js"></script>
 </body>
