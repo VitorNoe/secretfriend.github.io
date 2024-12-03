@@ -1,38 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     let participants = JSON.parse(localStorage.getItem('participants')) || [];
 
-    // Função para registrar participantes
-    function registerParticipant() {
-        const nameInput = document.getElementById('nameInput');
-        const name = nameInput.value.trim();
-
-        // Validação adicional: nome inválido
-        if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
-            alert("Por favor, insira um nome válido (apenas letras e espaços).");
-            return;
-        }
-
-        if (participants.includes(name)) {
-            alert("Este nome já foi registrado.");
-            return;
-        }
-
-        participants.push(name);
-        localStorage.setItem('participants', JSON.stringify(participants));
-
-        const confirmationMessage = document.getElementById('confirmationMessage');
-        confirmationMessage.innerText = "Você foi registrado com sucesso!";
-        confirmationMessage.classList.remove('hidden');
-        
-        setTimeout(() => {
-            window.location.href = 'draw.html';
-        }, 1500);
-    }
-
-    // Função para preencher o dropdown
+    // Função para preencher o dropdown e exibir a mensagem caso não haja participantes
     function populateDropdown() {
         const dropdown = document.getElementById('participantDropdown');
-        if (dropdown) {
+        const noParticipantsMessage = document.getElementById('noParticipantsMessage');
+        
+        if (participants.length === 0) {
+            noParticipantsMessage.classList.remove('hidden');
+        } else {
+            noParticipantsMessage.classList.add('hidden');
             participants.forEach(participant => {
                 const option = document.createElement('option');
                 option.value = participant;
@@ -41,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // Chama a função para preencher o dropdown ao carregar a página
+    populateDropdown();
+
 
     // Função para sortear o amigo secreto
     function showSecretFriend() {
