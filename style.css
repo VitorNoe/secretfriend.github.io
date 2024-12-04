@@ -1,45 +1,51 @@
 body {
-    background-color: #a83232;  /* Fundo vermelho suave */
-    color: #333;
-    font-family: Arial, sans-serif;
-    background-image: url('Snowflake_044f_06.jpg');
+    background: url('snow.png') repeat fixed, #B71C1C; /* Fundo vermelho suave */
     background-size: cover;
-    animation: snowfall 20s linear infinite;
-}
-
-h1 {
-    color: #c62828;  /* Vermelho suave */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
     background-color: white;
-    border: 2px solid #66bb6a;  /* Verde nas laterais */
-    padding: 20px;
-    border-radius: 10px;
+    border: 4px solid #4CAF50; /* Verde */
+    padding: 30px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     animation: fadeIn 1s ease-in-out;
+    color: #333; /* Texto escuro */
+}
+
+h1 {
+    color: #D32F2F; /* Vermelho suave */
+}
+
+input[type="text"], input[type="password"], button {
+    width: 80%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 button {
-    background-color: #66bb6a;  /* Verde */
+    background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #388e3c;
+    background-color: #388E3C;
 }
 
-.hidden {
-    display: none;
-}
-
-/* Animação de neve */
-@keyframes snowfall {
-    from { background-position: 0 0; }
-    to { background-position: 0 1000px; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
