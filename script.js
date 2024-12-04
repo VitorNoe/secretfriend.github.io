@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     let participants = JSON.parse(localStorage.getItem('participants')) || [];
-    let adminPassword = "2512"; // Senha do administrador
+    const adminPassword = "2512"; // Senha do administrador
 
     // Exibe as telas corretas (Login ou Registro)
     document.getElementById('registerBtn').addEventListener('click', () => {
@@ -14,7 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Função para registrar participante
-    document.getElementById('submitRegister').addEventListener('click', () => {
+    document.getElementById('submitRegister').addEventListener('click', () => registerParticipant());
+    document.getElementById('nameInput').addEventListener('keypress', (e) => {
+        if (e.key === "Enter") registerParticipant();
+    });
+
+    // Função para login de participante
+    document.getElementById('submitLogin').addEventListener('click', () => loginParticipant());
+    document.getElementById('loginName').addEventListener('keypress', (e) => {
+        if (e.key === "Enter") loginParticipant();
+    });
+
+    // Função para registrar participante
+    function registerParticipant() {
         const name = document.getElementById('nameInput').value.trim();
         const password = document.getElementById('passwordInput').value.trim();
         const errorMessage = document.getElementById('errorMessage');
@@ -37,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert("Registro realizado com sucesso!");
         window.location.href = 'draw.html';
-    });
+    }
 
     // Função para login de participante
-    document.getElementById('submitLogin').addEventListener('click', () => {
+    function loginParticipant() {
         const name = document.getElementById('loginName').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
         const errorMessage = document.getElementById('errorMessage');
@@ -62,5 +74,5 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Bem-vindo " + name + "!");
             window.location.href = 'draw.html';
         }
-    });
+    }
 });
