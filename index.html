@@ -3,31 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amigo Secreto - Registro/Login</title>
+    <title>Amigo Secreto - Página Inicial</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="snow"></div> <!-- Efeito de neve -->
     <div class="container">
-        <h1>Bem-vindo ao Amigo Secreto 🎄</h1>
-        <div class="auth-form">
-            <button id="registerBtn">Registrar</button>
-            <button id="loginBtn">Entrar</button>
+        <h1>Amigo Secreto 🎄</h1>
+        <div class="buttons">
+            <button onclick="window.location.href='register.html'">Registrar</button>
+            <button onclick="window.location.href='login.html'">Entrar</button>
         </div>
-        <div class="form-container hidden" id="registerForm">
-            <h2>Registrar Conta</h2>
-            <input type="text" id="nameInput" placeholder="Coloque o seu nome" />
-            <input type="password" id="passwordInput" placeholder="Coloque uma senha" />
-            <button id="submitRegister">Registrar</button>
-        </div>
-        <div class="form-container hidden" id="loginForm">
-            <h2>Entrar</h2>
-            <input type="text" id="loginName" placeholder="Coloque o seu nome" />
-            <input type="password" id="loginPassword" placeholder="Coloque a sua senha" />
-            <button id="submitLogin">Entrar</button>
-        </div>
-        <p id="errorMessage" class="hidden" style="color: red;"></p>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
