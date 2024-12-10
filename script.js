@@ -1,65 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let users = JSON.parse(localStorage.getItem('users')) || [];
+const snowContainer = document.getElementById('snow-container');
 
-    // Registrar novo usuário
-    const registerButton = document.getElementById('registerBtn');
-    if (registerButton) {
-        registerButton.addEventListener('click', registerUser);
-        document.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') registerUser();
-        });
-    }
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.textContent = '•'; // Ponto branco
+    snowflake.style.left = `${Math.random() * 100}vw`; // Posição horizontal aleatória
+    snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Duração aleatória (2 a 5 segundos)
+    snowflake.style.fontSize = `${Math.random() * 10 + 5}px`; // Tamanho aleatório (5 a 15px)
 
-    function registerUser() {
-        const name = document.getElementById('nameInput').value.trim();
-        const password = document.getElementById('passwordInput').value.trim();
-        const message = document.getElementById('message');
+    snowContainer.appendChild(snowflake);
 
-        if (!name || !password) {
-            message.innerText = "Por favor, preencha todos os campos.";
-            message.classList.remove('hidden');
-            return;
-        }
+    // Remove o floco após a animação
+    setTimeout(() => {
+        snowflake.remove();
+    }, 5000); // Tempo máximo da animação
+}
 
-        if (users.some(user => user.name === name)) {
-            message.innerText = "Este nome já está registrado.";
-            message.classList.remove('hidden');
-            return;
-        }
-
-        users.push({ name, password });
-        localStorage.setItem('users', JSON.stringify(users));
-
-        message.innerText = "Registrado com sucesso!";
-        message.classList.remove('hidden');
-        setTimeout(() => window.location.href = 'login.html', 1500);
-    }
-
-    // Login de usuário
-    const loginButton = document.getElementById('loginBtn');
-    if (loginButton) {
-        loginButton.addEventListener('click', loginUser);
-        document.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loginUser();
-        });
-    }
-
-    function loginUser() {
-        const name = document.getElementById('loginName').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-        const loginMessage = document.getElementById('loginMessage');
-
-        if (name === "Administrador" && password === "2512") {
-            window.location.href = 'admin.html';
-            return;
-        }
-
-        const user = users.find(user => user.name === name && user.password === password);
-        if (user) {
-            window.location.href = 'draw.html';
-        } else {
-            loginMessage.innerText = "Nome ou senha incorretos.";
-            loginMessage.classList.remove('hidden');
-        }
-    }
-});
+// Cria novos flocos de neve continuamente
+setInterval(createSnowflake, 200);
