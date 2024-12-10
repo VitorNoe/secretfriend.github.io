@@ -1,27 +1,12 @@
+/* Configurações gerais */
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Esconde barras de rolagem */
-    background-color: #C41E3A; /* Vermelho suave */
     font-family: Arial, sans-serif;
+    background-color: #A10C0C; /* Vermelho natalino */
 }
 
-#welcome-container {
-    text-align: center;
-    margin-top: 10%;
-}
-
-.button {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 30px;
-    background: white;
-    border-radius: 5px;
-    color: #C41E3A;
-    font-weight: bold;
-    text-decoration: none;
-}
-
+/* Animação de neve */
 #snow-container {
     position: absolute;
     top: 0;
@@ -35,19 +20,11 @@ body {
     position: absolute;
     top: -10px;
     color: white;
-    font-size: 8px; /* Tamanho dos flocos */
-    user-select: none;
-    pointer-events: none;
     animation: fall linear infinite;
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
+/* Bordas verde e dourado */
+.container {
+    border: 10px solid;
+    border-image: linear-gradient(to right, green, gold) 1;
 }
