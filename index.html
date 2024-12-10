@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amigo Secreto - Bem-vindo</title>
+    <title>Configuração de Tema Interativo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Amigo Secreto 🎄</h1>
-        <div class="button-container">
-            <button onclick="window.location.href='register.html'">Registrar</button>
-            <button onclick="window.location.href='login.html'">Entrar</button>
+        <!-- Engrenagem central -->
+        <div class="gear-wrapper">
+            <div class="gear" id="gear"></div>
+        </div>
+
+        <!-- Cartão de configurações -->
+        <div class="mode-card" id="modeCard">
+            <h2>Escolha o Tema</h2>
+            <button class="theme-btn light-mode" id="lightMode">🌞 Modo Claro</button>
+            <button class="theme-btn dark-mode" id="darkMode">🌜 Modo Escuro</button>
         </div>
     </div>
+
+    <!-- Script JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
