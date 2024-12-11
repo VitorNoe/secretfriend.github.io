@@ -3,29 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar 🎁</title>
+    <title>Entrar - Amigo Secreto</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Entrar 🎁</h1>
-        
-<form id="loginForm">
-    <table>
-        <tr>
-            <td><label for="loginName">Coloque o seu nome:</label></td>
-            <td><input type="text" id="loginName" required></td>
-        </tr>
-        <tr>
-            <td><label for="loginPassword">Coloque uma senha:</label></td>
-            <td><input type="password" id="loginPassword" required></td>
-        </tr>
-    </table>
-    <button type="submit" id="loginBtn">Entrar</button>
-</form>
-
+        <input type="text" id="loginName" placeholder="Coloque o seu nome" aria-label="Nome" />
+        <input type="password" id="loginPassword" placeholder="Coloque uma senha" aria-label="Senha" />
+        <button id="loginBtn">Entrar</button>
+        <p id="loginMessage" class="hidden"></p>
     </div>
-    <div id="snow-container"></div>
     <script src="script.js"></script>
 </body>
 </html>
