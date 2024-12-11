@@ -20,22 +20,64 @@ setInterval(createSnowflake, 200);
 
 // Registro e login
 document.addEventListener('DOMContentLoaded', () => {
+    // Registro
     const registerForm = document.getElementById('registerForm');
-    const loginForm = document.getElementById('loginForm');
+    const registerButton = document.getElementById('registerBtn');
 
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Registrado com sucesso! Redirecionando para o sorteio...');
-            window.location.href = 'sorteio.html';
+            processRegister();
+        });
+
+        registerButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            processRegister();
         });
     }
+
+    // Login
+    const loginForm = document.getElementById('loginForm');
+    const loginButton = document.getElementById('loginBtn');
 
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Login bem-sucedido! Redirecionando...');
-            window.location.href = 'sorteio.html';
+            processLogin();
+        });
+
+        loginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            processLogin();
         });
     }
 });
+
+// Função para registrar
+function processRegister() {
+    const nameInput = document.getElementById('nameInput').value.trim();
+    const passwordInput = document.getElementById('passwordInput').value.trim();
+
+    if (nameInput && passwordInput) {
+        alert(`Bem-vindo(a), ${nameInput}! Você foi registrado com sucesso.`);
+        window.location.href = 'sorteio.html';
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
+}
+
+// Função para login
+function processLogin() {
+    const loginName = document.getElementById('loginName').value.trim();
+    const loginPassword = document.getElementById('loginPassword').value.trim();
+
+    if (loginName === 'admin' && loginPassword === 'admin') {
+        alert('Login como administrador bem-sucedido!');
+        window.location.href = 'admin.html';
+    } else if (loginName && loginPassword) {
+        alert(`Bem-vindo(a), ${loginName}! Login bem-sucedido.`);
+        window.location.href = 'sorteio.html';
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
+}
