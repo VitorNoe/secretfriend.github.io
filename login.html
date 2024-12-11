@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar</title>
+    <title>Entrar 🎁</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Entrar 🎁</h1>
-        <input type="text" id="loginName" placeholder="Coloque o seu nome" required>
-        <input type="password" id="loginPassword" placeholder="Coloque uma senha" required>
-        <button id="loginBtn">Entrar</button>
+        <form id="loginForm">
+            <table>
+                <tr>
+                    <td><label for="loginName">Coloque o seu nome:</label></td>
+                    <td><input type="text" id="loginName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="loginPassword">Coloque uma senha:</label></td>
+                    <td><input type="password" id="loginPassword" required></td>
+                </tr>
+            </table>
+            <button type="submit" id="loginBtn">Entrar</button>
+        </form>
     </div>
     <div id="snow-container"></div>
     <script src="script.js"></script>
