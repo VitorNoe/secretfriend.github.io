@@ -1,83 +1,87 @@
-// Controle de neve
-const snowContainer = document.getElementById('snow-container');
+const participants = JSON.parse(localStorage.getItem('participants')) || [];
+const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+const adminPassword = '2512';
+const adminName = 'admin';
 
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.textContent = '•'; // Ponto branco
-    snowflake.style.left = `${Math.random() * 100}vw`; // Posição horizontal
-    snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Velocidade
-    snowflake.style.fontSize = `${Math.random() * 10 + 5}px`;
+function displayParticipants() {
+    const tableBody = document.querySelector('#participantsTable tbody');
+    tableBody.innerHTML = ''; // Clear existing rows
 
-    snowContainer.appendChild(snowflake);
-
-    setTimeout(() => {
-        snowflake.remove();
-    }, 5000);
+    participants.forEach((participant, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${participant.name}</td>
+            <td><button onclick="deleteParticipant(${index})">Excluir</button></td>
+        `;
+        tableBody.appendChild(row);
+    });
 }
 
-setInterval(createSnowflake, 200);
+function deleteParticipant(index) {
+    participants.splice(index, 1);
+    localStorage.setItem('participants', JSON.stringify(participants));
+    displayParticipants();
+}
 
-// Registro e login
-document.addEventListener('DOMContentLoaded', () => {
-    // Registro
-    const registerForm = document.getElementById('registerForm');
-    const registerButton = document.getElementById('registerBtn');
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            processRegister();
-        });
-
-        registerButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            processRegister();
-        });
+function registerUser(name, password) {
+    if (participants.some(p => p.name === name)) {
+        return 'Nome já registrado!';
     }
+    participants.push({ name, password, hasDrawn: false });
+    localStorage.setItem('participants', JSON.stringify(participants));
+    localStorage.setItem('loggedUser', JSON.stringify({ name, password }));
+    window.location.href = 'sorteio.html';
+}
 
-    // Login
-    const loginForm = document.getElementById('loginForm');
-    const loginButton = document.getElementById('loginBtn');
+function loginUser(name, password) {
+    const user = participants.find(p => p.name === name && p.password === password);
+    if (user) {
+        localStorage.setItem('loggedUser', JSON.stringify(user));
+        if (name === adminName && password === adminPassword) {
+            window.location.href = 'admin.html';
+        } else {
+            window.location.href = 'sorteio.html';
+        }
+    } else {
+        return 'Nome ou senha inválidos!';
+    }
+}
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            processLogin();
-        });
+document.getElementById('registerBtn').addEventListener('click', () => {
+    const name = document.getElementById('nameInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const message = registerUser(name, password);
+    document.getElementById('message').textContent = message || 'Registrado com sucesso!';
+});
 
-        loginButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            processLogin();
-        });
+document.getElementById('loginBtn').addEventListener('click', () => {
+    const name = document.getElementById('loginName').value;
+    const password = document.getElementById('loginPassword').value;
+    const message = loginUser(name, password);
+    document.getElementById('loginMessage').textContent = message || 'Login bem-sucedido!';
+});
+
+document.getElementById('drawBtn').addEventListener('click', () => {
+    if (loggedUser) {
+        if (loggedUser.hasDrawn) {
+            document.getElementById('resultMessage').textContent = 'Você já sorteou!';
+        } else {
+            const availableParticipants = participants.filter(p => p.name !== loggedUser.name && !p.hasDrawn);
+            const randomParticipant = availableParticipants[Math.floor(Math.random() * availableParticipants.length)];
+            loggedUser.hasDrawn = true;
+            randomParticipant.hasDrawn = true;
+            localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+            localStorage.setItem('participants', JSON.stringify(participants));
+            document.getElementById('resultMessage').textContent = `Seu amigo secreto é ${randomParticipant.name}!`;
+        }
     }
 });
 
-// Função para registrar
-function processRegister() {
-    const nameInput = document.getElementById('nameInput').value.trim();
-    const passwordInput = document.getElementById('passwordInput').value.trim();
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('loggedUser');
+    window.location.href = 'login.html';
+});
 
-    if (nameInput && passwordInput) {
-        alert(`Bem-vindo(a), ${nameInput}! Você foi registrado com sucesso.`);
-        window.location.href = 'sorteio.html';
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
-}
-
-// Função para login
-function processLogin() {
-    const loginName = document.getElementById('loginName').value.trim();
-    const loginPassword = document.getElementById('loginPassword').value.trim();
-
-    if (loginName === 'admin' && loginPassword === 'admin') {
-        alert('Login como administrador bem-sucedido!');
-        window.location.href = 'admin.html';
-    } else if (loginName && loginPassword) {
-        alert(`Bem-vindo(a), ${loginName}! Login bem-sucedido.`);
-        window.location.href = 'sorteio.html';
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
+if (window.location.pathname === '/admin.html') {
+    displayParticipants();
 }
